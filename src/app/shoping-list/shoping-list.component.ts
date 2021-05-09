@@ -18,4 +18,12 @@ export class ShopingListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  shoplistChange(event){
+    // console.log(event)
+    if(event.operation === 'Add') this.ingredients.push(event.ingredient) ;
+    else {
+      this.ingredients.splice(this.ingredients.indexOf(event.ingredient),1);
+    }
+  }
+
 }
