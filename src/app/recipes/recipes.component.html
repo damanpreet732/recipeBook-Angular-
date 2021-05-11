@@ -1,9 +1,11 @@
 <div class="row">
-    <div class="col-md-5 p-4" style="border-right: 1px solid lightgrey ;">
-    <app-recipe-list></app-recipe-list>
+    <div class="col-md-5" style="border-right: 1px solid lightgrey ; padding: 2%;">
+        <app-recipe-list></app-recipe-list>
     </div>
-    <div class="col-md-7 p-4">
+    <div class="col-md-7" style="padding: 2%;">
         <app-recipe-details *ngIf="selectedRecipe;else recipeUndefined" [recipe]="selectedRecipe"></app-recipe-details>
-        <ng-template #recipeUndefined><h1>Please Select a Recipe.</h1></ng-template>
+        <ng-template #recipeUndefined>
+            <h1>Please Select a Recipe.</h1>
+        </ng-template>
     </div>
 </div>

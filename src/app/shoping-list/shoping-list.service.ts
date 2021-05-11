@@ -22,5 +22,11 @@ export class ShopingListService{
         this.ingredients.splice(this.ingredients.indexOf(ingredient), 1);
         this.shopingListEmitter.emit(this.ingredients.slice());
     }
+
+    adds(ingredients:Ingredient[]){
+        // for(let ingredint of ingredients) this.add(ingredint)
+        this.ingredients.push(...ingredients);
+        this.shopingListEmitter.emit(this.ingredients.slice());
+    }
         
 } 
