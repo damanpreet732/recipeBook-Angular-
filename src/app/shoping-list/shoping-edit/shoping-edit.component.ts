@@ -1,5 +1,6 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Ingredient } from 'src/app/shared/ingredient.model';
+import { ShopingListService } from '../shoping-list.service';
 
 @Component({
   selector: 'app-shoping-edit',
@@ -9,24 +10,23 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 export class ShopingEditComponent implements OnInit {
   @ViewChild('inputName') inputName : ElementRef;
   @ViewChild('inputAmount') inputAmount : ElementRef ;
-  @Output() shopEditEmitter = new EventEmitter<{ingredient : Ingredient,operation : string}>();
 
-  constructor() { }
+  constructor(private shopingListService : ShopingListService) { }
 
   ngOnInit(): void {
   }
 
   onAdd(){
-    this.shopEditEmitter.emit({
-      ingredient : new Ingredient(this.inputName.nativeElement.value,this.inputAmount.nativeElement.value),
-      operation : 'Add',
-    })
+    const name = this.inputName.nativeElement.value ;
+    const amount = this.inputAmount.nativeElement.value ;
+    const ingredient: Ingredient = new Ingredient(name , amount );
+    this.shopingListService.add(ingredient);
   }
   onDelete(){
-    this.shopEditEmitter.emit({
-      ingredient : new Ingredient(this.inputName.nativeElement.value,this.inputAmount.nativeElement.value),
-      operation : 'Delete',
-    })
+    const name = this.inputName.nativeElement.value ;
+    const amount = this.inputAmount.nativeElement.value ;
+    const ingredient: Ingredient = new Ingredient(name , amount );
+    this.shopingListService.delete(ingredient);
   }
   onClear(){
     // console.log(this.inputName)
