@@ -7,14 +7,14 @@ import { Component, OnInit, Output ,EventEmitter } from "@angular/core";
 
 export class headerComponent implements OnInit{
 
-    @Output() navigate = new EventEmitter<string>();
+    // @Output() navigate = new EventEmitter<string>();
 
     ngOnInit(){
     }
 
-    onNavigate(event){
-        // event.target.parentNode.classList.add('active')
-        this.navigate.emit(event.target.innerText);
-    }
+    // onNavigate(event){
+    //     // event.target.parentNode.classList.add('active')
+    //     this.navigate.emit(event.target.innerText);
+    // }
 
 }

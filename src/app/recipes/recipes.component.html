@@ -3,9 +3,10 @@
         <app-recipe-list></app-recipe-list>
     </div>
     <div class="col-md-7" style="padding: 2%;border-left: 1px solid lightgrey ; min-height: 500px;">
-        <app-recipe-details *ngIf="selectedRecipe;else recipeUndefined" [recipe]="selectedRecipe"></app-recipe-details>
+        <router-outlet></router-outlet>
+        <!-- <app-recipe-details *ngIf="selectedRecipe;else recipeUndefined" [recipe]="selectedRecipe"></app-recipe-details>
         <ng-template #recipeUndefined>
             <h1 class="text-center">Please Select a Recipe.</h1>
-        </ng-template>
+        </ng-template> -->
     </div>
 </div>

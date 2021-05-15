@@ -3,8 +3,9 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recipes *ngIf="navigateTo === 'Recipes'"></app-recipes>
-      <app-shoping-list *ngIf="navigateTo === 'Shopping List'"></app-shoping-list>
+      <router-outlet></router-outlet>
+      <!-- <app-recipes *ngIf="navigateTo === 'Recipes'"></app-recipes>
+      <app-shoping-list *ngIf="navigateTo === 'Shopping List'"></app-shoping-list> -->
     </div>
   </div>
 </div>
