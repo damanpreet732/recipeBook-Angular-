@@ -34,7 +34,7 @@ export class ShopingListComponent implements OnInit , OnDestroy {
 
   ngOnDestroy(): void {
     this.igChangeSub.unsubscribe();
-    console.log('Method not implemented')
+    // console.log('Method not implemented');
     // throw new Error('Method not implemented.');
   }
 

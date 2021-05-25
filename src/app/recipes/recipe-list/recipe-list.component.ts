@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Recipe } from '../recipes.model';
-import { RecipesService } from '../recipes.service';
+import { RecipesService } from '../../recipes.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -34,7 +34,7 @@ export class RecipeListComponent implements OnInit , OnDestroy{
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
 
 }

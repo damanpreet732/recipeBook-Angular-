@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router,  } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RecipesService } from '../recipes.service';
+import { RecipesService } from '../../recipes.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -77,6 +77,10 @@ export class RecipeEditComponent implements OnInit {
         'amount' : new FormControl(null,[Validators.required,Validators.pattern(/[0-9]+[1-9]*$/)]) ,
       })
     )
+  }
+
+  onDeleteIngredient(index : number ) {
+    (<FormArray>this.recipeEditForm.get('ingredients')).removeAt(index);
   }
 
   onSubmit(){
