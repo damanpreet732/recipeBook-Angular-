@@ -27,9 +27,15 @@ export class ShopingListComponent implements OnInit , OnDestroy {
       )
   }
 
+  onEditItem(index : number){
+    // console.log(index);
+    this.shopingListService.startedEditing.next(index);
+  }
+
   ngOnDestroy(): void {
     this.igChangeSub.unsubscribe();
-    throw new Error('Method not implemented.');
+    console.log('Method not implemented')
+    // throw new Error('Method not implemented.');
   }
 
 }

@@ -5,6 +5,7 @@ import { Ingredient } from "../shared/ingredient.model";
 export class ShopingListService{
     // shopingListEmitter = new EventEmitter<Ingredient[]>();
     shopingListEmitter = new Subject <Ingredient[]> () ;
+    startedEditing = new Subject <number> ();
 
     private ingredients : Ingredient [] = [
         new Ingredient('Apples' , 5),
@@ -15,13 +16,23 @@ export class ShopingListService{
         return this.ingredients.slice();
     }
 
+    getIngredient(index : number ){
+        // console.log(index);
+        return this.ingredients[index] ;
+    }
+
     add(ingredient:Ingredient){
         this.ingredients.push(ingredient);
         this.shopingListEmitter.next(this.ingredients.slice());
     }
 
-    delete(ingredient:Ingredient){
-        this.ingredients.splice(this.ingredients.indexOf(ingredient), 1);
+    update(ingredient : Ingredient , index : number ){
+        this.ingredients[index] = ingredient ;
+        this.shopingListEmitter.next( this.ingredients.slice() ) ;
+    }
+
+    delete(index : number){
+        this.ingredients.splice(index, 1);
         this.shopingListEmitter.next(this.ingredients.slice());
     }
 

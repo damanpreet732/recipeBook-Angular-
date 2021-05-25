@@ -14,6 +14,7 @@ import { ShopingListService } from './shoping-list/shoping-list.service';
 import { AppRoutingModule } from './app-routing,module';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,8 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule ,
     AppRoutingModule,
   ],
   providers: [ShopingListService],
