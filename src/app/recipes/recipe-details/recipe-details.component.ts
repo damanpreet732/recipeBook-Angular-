@@ -16,11 +16,13 @@ export class RecipeDetailsComponent implements OnInit {
   ) { }
 
   recipe : Recipe ;
+  id : number ;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
       (params : Params )=> {
-        this.recipe = this.recipeService.getRecipe(+params.id) ;
+        this.id = +params.id ;
+        this.recipe = this.recipeService.getRecipe(this.id) ;
       }
     )
     // console.log(this.id);
@@ -28,6 +30,10 @@ export class RecipeDetailsComponent implements OnInit {
 
   toShopingList(){
     this.recipeService.addIngreditsToShopingList(this.recipe.ingredients);
+  }
+
+  onDelete(){
+    this.recipeService.delete(this.id);
   }
 
 }

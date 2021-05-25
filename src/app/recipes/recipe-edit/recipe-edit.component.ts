@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params,  } from '@angular/router';
+import { ActivatedRoute, Params, Router,  } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RecipesService } from '../recipes.service';
 
@@ -18,6 +18,7 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(private activatedRoute : ActivatedRoute ,
       private recipeServeice : RecipesService ,
+      private router : Router , 
     ) { }
 
   ngOnInit(): void {
@@ -30,8 +31,6 @@ export class RecipeEditComponent implements OnInit {
     );
   }
   
-
-
   private initForm (){
     let recipeName = '' ;
     let imagePath = '' ;
@@ -83,6 +82,11 @@ export class RecipeEditComponent implements OnInit {
   onSubmit(){
     if(this.editMode) this.recipeServeice.updateRecipe(this.id , this.recipeEditForm.value) ;
     else this.recipeServeice.addRecipe(this.recipeEditForm.value) ;
+    this.onCancle();
+  }
+
+  onCancle() {
+    this.router.navigate(['../'],{relativeTo: this.activatedRoute})
   }
 
   ngOnDestory() {
