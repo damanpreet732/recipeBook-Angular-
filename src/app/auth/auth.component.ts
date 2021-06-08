@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
+import { AuthResponseData, AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -22,24 +23,29 @@ export class AuthComponent implements OnInit {
   }
 
   onSubmit(authForm : FormGroup){
+    let authObs : Observable <AuthResponseData> ;
+
     if(authForm.value){
       const email = authForm.value.email ;
       const pass = authForm.value.password ;
       if(this.wantsLogin){
-        // pass 
+        authObs = this.authService.login(email , pass)
       }
       else {
-        this.authService.onSignUp(email , pass).subscribe(
-          resData => {
-            console.log(resData);
-          },
-          err => {
-            this.error = err.error.error.message ;
-            // this.error = "An Error Occured !" ;
-            console.log(err);
-          }
-        )
+        authObs = this.authService.signUp(email , pass)
       }
+
+      authObs.subscribe(
+        resData => {
+          console.log(resData);
+        },
+        err => {
+          this.error = err.error.error.message ;
+          // this.error = "An Error Occured !" ;
+          console.log(err);
+        }
+      )
+
       authForm.reset();
     }
   }
