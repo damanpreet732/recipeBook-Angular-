@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthResponseData, AuthService } from './auth.service';
 
@@ -13,7 +14,7 @@ export class AuthComponent implements OnInit {
   wantsLogin = true ;
   error = null ;
 
-  constructor( private authService : AuthService ) { }
+  constructor( private authService : AuthService , private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -38,6 +39,7 @@ export class AuthComponent implements OnInit {
       authObs.subscribe(
         resData => {
           console.log(resData);
+          this.router.navigate(['/recipes']);
         },
         err => {
           this.error = err.error.error.message ;

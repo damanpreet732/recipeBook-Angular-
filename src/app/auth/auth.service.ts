@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { tap } from "rxjs/operators";
 import { User } from "./user.model";
 
@@ -17,7 +17,7 @@ export interface AuthResponseData {
 @Injectable({ providedIn : 'root' })
 export class AuthService {
 
-    user = new Subject();
+    user = new BehaviorSubject(null);
 
     constructor(private http : HttpClient ,){}
 
@@ -41,26 +41,26 @@ export class AuthService {
         )
     }
 
-    // login(email : string , pass : string){
-    //     return this.http.post<AuthResponseData>(
-    //         '',
-    //         {
-    //             email : email ,
-    //             password : pass ,
-    //             returnSecureToken : true ,
-    //         }
-    //     )
-    //     .pipe( 
-    //         tap(resData => {
-    //             this.handelAuthToken(
-    //                 resData.email ,
-    //                 resData.localId , 
-    //                 resData.idToken , 
-    //                 +resData.expiresIn
-    //             )
-    //         })
-    //     )
-    // }
+    login(email : string , pass : string){
+        return this.http.post<AuthResponseData>(
+            'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCeztZIrxRyBv4aqVoOMx8z3lKjmaDOeY4',
+            {
+                email : email ,
+                password : pass ,
+                returnSecureToken : true ,
+            }
+        )
+        .pipe( 
+            tap(resData => {
+                this.handelAuthToken(
+                    resData.email ,
+                    resData.localId , 
+                    resData.idToken , 
+                    +resData.expiresIn
+                )
+            })
+        )
+    }
 
     private handelAuthToken (
         email : string ,

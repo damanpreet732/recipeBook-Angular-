@@ -1,4 +1,6 @@
-import { Component, OnInit, Output ,EventEmitter } from "@angular/core";
+import { Component, OnInit, Output ,EventEmitter, OnDestroy } from "@angular/core";
+import { Subscription } from "rxjs";
+import { AuthService } from "../auth/auth.service";
 import { DataStorageService } from "../shared/data-storage.service";
 
 @Component({
@@ -6,13 +8,25 @@ import { DataStorageService } from "../shared/data-storage.service";
     templateUrl:'./header.component.html',
 }) 
 
-export class headerComponent implements OnInit{
+export class headerComponent implements OnInit , OnDestroy{
 
-    constructor(private dataStorageService : DataStorageService ){}
+    userSub : Subscription ;
+    isAuthenticated : boolean  = false ;
+
+    constructor(
+        private dataStorageService : DataStorageService ,
+        private authService : AuthService ,    
+    ){}
+
 
     // @Output() navigate = new EventEmitter<string>();
 
     ngOnInit(){
+        this.userSub = this.authService.user.subscribe(
+            (user) => {
+                this.isAuthenticated = !!user ;
+            }
+        )
     }
 
     // onNavigate(event){
@@ -26,6 +40,11 @@ export class headerComponent implements OnInit{
 
     onFetchData(){
         this.dataStorageService.fetchData().subscribe();
+    }
+
+    ngOnDestroy(): void {
+        this.userSub.unsubscribe() ;
+        // throw new Error("Method not implemented.");
     }
 
 }

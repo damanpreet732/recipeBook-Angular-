@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http' ;
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http' ;
 
 import { AppComponent } from './app.component';
 import { headerComponent } from './header/header.component';
@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipesService } from './recipes.service';
 import { DataStorageService } from './shared/data-storage.service';
 import { AuthComponent } from './auth/auth.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,11 @@ import { AuthComponent } from './auth/auth.component';
     ShopingListService,
     RecipesService,
     // DataStorageService,
+    {
+      provide : HTTP_INTERCEPTORS , 
+      useClass : AuthInterceptorService , 
+      multi : true 
+    }
   ],
   bootstrap: [AppComponent]
 })
