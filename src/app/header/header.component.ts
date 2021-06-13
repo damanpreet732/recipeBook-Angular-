@@ -47,4 +47,8 @@ export class headerComponent implements OnInit , OnDestroy{
         // throw new Error("Method not implemented.");
     }
 
+    onLogout(){
+        this.authService.logout();
+    }
+
 }
