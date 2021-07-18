@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-xs-12 col-md-6 col-offset-3">
-        <div class="alert alert-danger" *ngIf="error">
+        <!-- <div class="alert alert-danger" *ngIf="error">
             <p>{{ error }}</p>
-        </div>
+        </div> -->
+        <!-- <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert> -->
+        <ng-template appDirective></ng-template>
         <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
             <div class="form-group">
                 <label for="email">E-mail</label>

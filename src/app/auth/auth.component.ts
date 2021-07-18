@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 import { AuthResponseData, AuthService } from './auth.service';
 
 @Component({
@@ -14,7 +16,13 @@ export class AuthComponent implements OnInit {
   wantsLogin = true ;
   error = null ;
 
-  constructor( private authService : AuthService , private router : Router) { }
+  @ViewChild(PlaceholderDirective , {static:false}) alertHost : PlaceholderDirective;
+
+  constructor( 
+    private authService : AuthService , 
+    private router : Router ,
+    private ComponentFactoryResolver : ComponentFactoryResolver 
+  ) { }
 
   ngOnInit(): void {
   }
@@ -43,6 +51,7 @@ export class AuthComponent implements OnInit {
         },
         err => {
           this.error = err.error.error.message ;
+          this.showErrorAlert();
           // this.error = "An Error Occured !" ;
           console.log(err);
         }
@@ -50,6 +59,27 @@ export class AuthComponent implements OnInit {
 
       authForm.reset();
     }
+  }
+
+  // onHandleError() {
+  //   this.error = null ;
+  // }
+
+  private showErrorAlert() {
+    // const alertCmp = new AlertComponent() ;
+    const alertCmpFactory = this.ComponentFactoryResolver.resolveComponentFactory(
+      AlertComponent
+    );
+    const hsotViewContainerRef = this.alertHost.ViewContainerRef ;
+    hsotViewContainerRef.clear();
+
+    const componentRef = hsotViewContainerRef.createComponent(alertCmpFactory);
+
+    componentRef.instance.message = this.error;
+    const sub : Subscription = componentRef.instance.close.subscribe(() => {
+      sub.unsubscribe();
+      hsotViewContainerRef.clear();
+    })
   }
 
 }
